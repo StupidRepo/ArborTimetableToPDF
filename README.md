@@ -1,6 +1,12 @@
 # ArborTimetableToPDF
 Quite a self-explantory title. This is a simple script that takes your Arbor timetable and converts it to a PDF.
 
+> [!NOTE]
+> Currently, this script will only output a HTML file in `out/timetable.html`. The whole PDF bit is still a bit WIP.
+> You can use your browser to print the HTML file to a PDF, or directly to a printer, however you will need to mess with the print settings to get the scale right.
+>
+> <small>Also, please use landscape...</small>
+
 ## Requirements
 - Deno (https://deno.land/)
 - A valid Arbor **student** account with access to your timetable.
