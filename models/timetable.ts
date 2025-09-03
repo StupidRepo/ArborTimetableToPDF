@@ -14,6 +14,7 @@ export namespace Timetable {
 
 		extraDetails: {
 			teacher?: string;
+			isBreak: boolean; // NOTE: we use this ourselves, it's not provided by the API
 		};
 	}
 

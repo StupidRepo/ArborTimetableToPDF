@@ -67,7 +67,10 @@ if (import.meta.main) {
 		Deno.exit(1);
 	}
 
-	// render html template (eta)
+	// add breaks
+	// doBreakLoop(timetable);
+
+	// render html template (using eta :P)
 	const eta = new Eta({ views: "./assets" });
 	const rendered = await eta.renderAsync("template", { timetable, moment, school: loginResponse.school.name, student: deets.display_name, year: start.startDate.format("YYYY") });
 
@@ -75,4 +78,32 @@ if (import.meta.main) {
 	await Deno.writeTextFile("out/timetable.html", rendered);
 
 	// TODO: gen PDF
+}
+
+function doBreakLoop(tt: Timetable.Response) {
+	// we need to go through each day, and for each item, see if there is a gap in time before the next item after. if so, insert a new lesson with type "Break" and set the time to be when the gap is
+	tt.items.forEach(day => {
+		const newItems: Timetable.TimetableItem[] = [];
+		day.items.forEach((item, index) => {
+			newItems.push(item);
+			if (index < day.items.length - 1) {
+				const thisEnd = moment(item.endDatetime);
+				const nextStart = moment(day.items[index + 1].startDatetime);
+				if (nextStart.diff(thisEnd, "minutes") >= 5) { // if there's a gap of 5 minutes or more, we consider it a break
+					newItems.push({
+						startDatetime: thisEnd.format("YYYY-MM-DD HH:mm:ss"),
+						endDatetime: nextStart.format("YYYY-MM-DD HH:mm:ss"),
+						title: "Break",
+						location: "",
+						type: "Break",
+						extraDetails: {
+							isBreak: true
+						}
+					});
+				}
+			}
+		});
+		// replace items with newItems
+		day.items = newItems;
+	});
 }
