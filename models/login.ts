@@ -3,7 +3,7 @@
 // goofy arbor dev 4: "yo bro who tf is 'github.com/StupidRepo/ArborTimetableToPDF' and why is it making requests???"
 // goofy arbor dev 4: "oh i just checked login.ts, this guy is making fun of us! let's send a ✨ cease and desist ✨ :D"
 // me: "*sigh* i love lawyers :D"
-import {CLIENT_ID, LOGIN_URL, Networking} from "../consts.ts";
+import {API_BASE_URL, CLIENT_ID, LOGIN_URL, Networking} from "../consts.ts";
 
 export namespace FirstAuthorization {
 	// login.arbor.sc/oauth/authorize
@@ -93,7 +93,10 @@ export namespace SchoolLogin {
 		// goofy arbor dev 2: "bet! :D"
 	}
 
-	export async function doLogin(username: string, password: string) : Promise<SchoolLogin.Response> {
+	export async function doLogin(username: string, password: string) : Promise<{
+		session: SchoolLogin.Response,
+		school: SchoolAuthorization.School,
+	}> {
 		// 1. first authorisation
 		console.log("Logging in...");
 		const firstAuthRequest: FirstAuthorization.Request = {
@@ -136,13 +139,27 @@ export namespace SchoolLogin {
 			refresh_token: selectedToken.refresh_token
 		};
 
-		return await Networking.doNetworkRequest<SchoolLogin.Response>(
+		// return await Networking.doNetworkRequest<SchoolLogin.Response>(
+		// 	"POST",
+		// 	"https://student-api.arbor.sc/oauth/token",
+		// 	loginRequest,
+		// 	{
+		// 		"sis-application-id": selectedSchool.sisApplicationId,
+		// 	}
+		// );
+
+		const session = await Networking.doNetworkRequest<SchoolLogin.Response>(
 			"POST",
-			"https://student-api.arbor.sc/oauth/token",
+			API_BASE_URL + "oauth/token",
 			loginRequest,
 			{
 				"sis-application-id": selectedSchool.sisApplicationId,
 			}
 		);
+
+		return {
+			session,
+			school: selectedSchool
+		};
 	}
 }
