@@ -23,4 +23,6 @@ Quite a self-explantory title. This is a simple script that takes your Arbor tim
 5. Enjoy!
 
 ## Disclaimer
-Not affiliated with Arbor in any way. Use at your own risk. I am not responsible for any damage caused by this script. This script is provided as-is without any warranty. By using this script, you agree to the terms and conditions of Arbor and your school. Make sure it's all good to use this script (some schools might have some silly policies).
+Not affiliated with Arbor in any way. Use at your own risk. I am not responsible for any possible damage caused by this script.
+
+Also, before using this script, make sure it's all good to even run this script (your school might have some stupid policies).
