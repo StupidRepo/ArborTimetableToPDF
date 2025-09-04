@@ -48,9 +48,9 @@
                                         <% const hrs = Math.floor(durationMinutes / 60) %>
 
                                         <% if (durationMinutes % 60 === 0) { %>
-                                            (<%= hrs %>hr<%= hrs === 1 ? "s" : "" %>)
+                                            (<%= hrs %>hr<%= hrs === 1 ? "" : "s" %>)
                                         <% } else if(durationMinutes % 60 !== 0 && durationMinutes > 60) { %>
-                                            (<%= hrs %>hr<%= hrs === 1 ? "s" : "" %> <%= durationMinutes % 60 %>mins)
+                                            (<%= hrs %>hr<%= hrs === 1 ? "" : "s" %> <%= durationMinutes % 60 %>mins)
                                         <% } else { %>
                                             (<%= durationMinutes %>mins)
                                         <% } %>

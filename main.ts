@@ -81,7 +81,6 @@ if (import.meta.main) {
 }
 
 function doBreakLoop(tt: Timetable.Response) {
-	// we need to go through each day, and for each item, see if there is a gap in time before the next item after. if so, insert a new lesson with type "Break" and set the time to be when the gap is
 	tt.items.forEach(day => {
 		const newItems: Timetable.TimetableItem[] = [];
 		day.items.forEach((item, index) => {
